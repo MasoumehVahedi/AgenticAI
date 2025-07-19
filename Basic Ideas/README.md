@@ -46,8 +46,8 @@ Agentic AI systems allow LLMs to do more than answer a prompt — they let the m
 Whether using one model step-by-step or coordinating many, these systems mimic reasoning and autonomy — making AI not just smart, but also **interactive and goal-directed**.
 
 
-
-## Workflow Design Patterns for Agentic AI
+## Category 1: Workflow Design Patterns
+These are structured, fixed-path designs. Tasks are broken into known steps—deterministic and repeatable.
 
 Anthropic defines **five** foundational patterns to structure AI workflows involving LLMs. These help decompose, route, validate, and parallelize complex tasks across multiple LLMs.
 
@@ -78,9 +78,9 @@ You want to generate a business idea.
 
 ---
 
-## 2. 🧭 Routing
+## 2. Routing
 
-### 📝 Concept:
+### Concept:
 An LLM acts as a **router**, directing input to the most suitable expert LLM based on task classification.
 
 ```text
@@ -166,3 +166,56 @@ You're building a math tutor.
 - Validation loop reduces hallucinations
 - Ideal for safety-critical use cases
 - Encourages high-quality output via feedback cycles
+
+
+
+## Category 2: Agentic Patterns
+By contrast, Agentic Patterns are open-ended.
+LLMs interact with environments, receive feedback, and choose their own paths.
+
+### Key traits:
+- ✅ Open-ended & flexible
+- 🔁 Feedback loops
+- 🚫 No fixed sequence of actions
+- 🤖 LLM autonomously controls the flow
+
+### Example structure:
+
+```text
+[Human] → LLM ↔ Environment (Action ↔ Feedback)
+         ↓
+        STOP (when agent chooses)
+```
+
+### ⚠️ Risks of Agentic Frameworks
+While powerful, agentic systems introduce uncertainty and cost overheads that require careful mitigation.
+
+Common Challenges:
+- Unpredictable Path: LLM decides the action order dynamically.
+- Unpredictable Output: No guaranteed accuracy or success.
+- Unpredictable Costs: Repeated LLM/tool usage may increase API bills.
+
+ ### Risk Mitigation Strategies
+#### 1. Monitor Everything
+Track LLM behavior, calls, and feedback loops. Especially important with multi-agent environments.
+
+```text
+Trace interactions → Understand inner workings → Detect issues early
+```
+
+OpenAI SDK & LangSmith provide tools for tracing and visibility.
+
+#### 2. Guardrails
+Write constraints in code to define safety, ethical limits, and behavioral boundaries.
+
+Guardrails ensure your agents:
+- Behave safely
+- Stay within scope
+- Don’t take harmful or unproductive actions
+
+These protections are essential when deploying agentic AI in production systems.
+
+
+
+
+
