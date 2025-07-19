@@ -50,7 +50,34 @@ This command does the following:
 It’s like a faster, smarter replacement for pip install + virtualenv + pip-tools.
 
 
+## 🔐 Set Up OpenAI API Key 
 
+We can integrate this project with the OpenAI API.
+
+### 1. Create/Open an OpenAI Account
+Go to [https://platform.openai.com](https://platform.openai.com) and:
+- Sign up or log in
+- Navigate to **Settings → Billing** and top up your account (minimum $5)
+
+### 2. Generate an API Key
+- Go to **API Keys** in the settings menu
+- Click **Create new secret key**
+- Name it (any name)
+- Choose **Default Project**
+- Leave **All permissions** selected
+- Click **Create Secret Key**
+
+⚠️ **Important:** Copy our key immediately — we won't see it again!
+
+Avoid pasting our key into editors that auto-format characters (like Microsoft Word or Notepad), which could break the key.
+
+### 3. Store It in a `.env` File
+
+Create a file called `.env` (note the leading dot) in our project root and add:
+
+```env
+OPENAI_API_KEY=your-key-here
+```
 
 
 
