@@ -8,6 +8,7 @@ To install [`uv`](https://github.com/astral-sh/uv), a fast Python package manage
 ```bash
 # On macOS and Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 Then, verify installation:
 
