@@ -15,16 +15,18 @@ Then, verify installation:
 ```bash
 which uv
 uv --version
-
+```
 
 To ensure the binary is accessible, make sure this is in your shell config (e.g., ~/.zshrc or ~/.bash_profile):
 
+```bash
 export PATH="$HOME/.local/bin:$PATH"
-
+```
 
 Reload your shell:
 
+```bash
 source ~/.zshrc  # or source ~/.bash_profile
-
+```
 
 
