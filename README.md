@@ -1,3 +1,19 @@
+## 🤖 Agentic Pattern: Multi-Step LLM Reasoning
+
+This project uses an *agentic pattern*, where multiple calls to a language model (LLM) are orchestrated to solve a broader problem.
+
+### Example Flow:
+
+1. **Step 1**: One LLM call generates a question or breaks down the task.
+2. **Step 2**: Another LLM call answers that question or completes the task based on the first output.
+
+This pattern reflects how agentic systems work — reasoning step-by-step, calling models iteratively, and combining their outputs to reach a goal.
+
+We will see this implemented using a sequence of `messages`, where each message has:
+- A `role` (e.g., `"user"`)
+- Some `content` (e.g., the generated question)
+
+This modular and compositional approach is what gives LLM agents their flexibility and power.
 
 
 
