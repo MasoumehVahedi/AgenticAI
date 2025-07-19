@@ -2,7 +2,7 @@
 
 This project uses an *agentic pattern*, where multiple calls to a language model (LLM) are orchestrated to solve a broader problem.
 
-### Example Flow:
+#### Example Flow:
 
 1. **Step 1**: One LLM call generates a question or breaks down the task.
 2. **Step 2**: Another LLM call answers that question or completes the task based on the first output.
