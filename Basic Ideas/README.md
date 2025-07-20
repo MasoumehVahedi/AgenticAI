@@ -45,6 +45,8 @@ Agentic AI systems allow LLMs to do more than answer a prompt — they let the m
 
 Whether using one model step-by-step or coordinating many, these systems mimic reasoning and autonomy — making AI not just smart, but also **interactive and goal-directed**.
 
+---
+
 
 ## Category 1: Workflow Design Patterns
 These are structured, fixed-path designs. Tasks are broken into known steps—deterministic and repeatable.
@@ -167,7 +169,7 @@ You're building a math tutor.
 - Ideal for safety-critical use cases
 - Encourages high-quality output via feedback cycles
 
-
+---
 
 ## Category 2: Agentic Patterns
 By contrast, Agentic Patterns are open-ended.
@@ -214,6 +216,27 @@ Guardrails ensure your agents:
 - Don’t take harmful or unproductive actions
 
 These protections are essential when deploying agentic AI in production systems.
+
+
+---
+
+## The Cast of LLM Characters
+
+These are the key LLM providers we will encounter during agentic AI development:
+
+- **OpenAI**: gpt-4o-mini (also gpt-4o, o1, o3-mini)
+- **Anthropic**: Claude-3-7-Sonnet
+- **Google**: Gemini-2.0-Flash
+- **DeepSeek AI**: DeepSeek V3, DeepSeek R1
+- **Groq**: Open-source LLMs incl. Llama3.3
+- **Ollama**: Local open-source LLMs incl. Llama3.2
+
+For comparison of cost, speed, and performance, check:
+[https://www.vellum.ai/llm-leaderboard](Vellum Leaderboard)
+
+
+
+
 
 
 
