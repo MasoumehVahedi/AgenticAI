@@ -218,21 +218,6 @@ Guardrails ensure your agents:
 These protections are essential when deploying agentic AI in production systems.
 
 
----
-
-## The Cast of LLM Characters
-
-These are the key LLM providers we will encounter during agentic AI development:
-
-- **OpenAI**: gpt-4o-mini (also gpt-4o, o1, o3-mini)
-- **Anthropic**: Claude-3-7-Sonnet
-- **Google**: Gemini-2.0-Flash
-- **DeepSeek AI**: DeepSeek V3, DeepSeek R1
-- **Groq**: Open-source LLMs incl. Llama3.3
-- **Ollama**: Local open-source LLMs incl. Llama3.2
-
-For comparison of cost, speed, and performance, check:
-[https://www.vellum.ai/llm-leaderboard](Vellum Leaderboard)
 
 
 
