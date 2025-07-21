@@ -46,13 +46,13 @@ Python’s **asynchronous I/O** is the core concurrency model underpinning every
    ```python
    with trace() as session:
        …
-  ```
+   ```
 
 3. **Execute the Agent**
    ```python
    result = await runner.run()
        …
-  ```
+   ```
 Run the agent’s main coroutine and await its output.
 
 
