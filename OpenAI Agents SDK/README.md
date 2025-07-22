@@ -84,3 +84,78 @@ Run the agent’s main coroutine and await its output.
 ---
 Start vibing—just remember to stay in control.  
 
+---
+
+## Wrapping Agents, Tools & Handoffs
+
+### What We Built
+1. **Parallel email generators**  
+   - Three “sales agent” LLMs run in parallel (via `asyncio.gather`).  
+   - A fourth manager agent picks the best output.
+
+2. **Tools**  
+   - We turned Python functions (e.g. SendGrid email sender) into `FunctionTool`s.  
+   - We also wrapped two of our “sales agents” as tools using `.as_tool(...)`.  
+   - All tools share a uniform interface:  
+     ```python
+     tool = agent.as_tool(
+       tool_name="subject_writer",
+       tool_description="Write an email subject from a body"
+     )
+     result = tool({"body": "New features..."})
+     ```
+
+3. **Manager Agent**  
+   - Receives a list of tools (`[sales1, sales2, sales3, send_email]`).  
+   - Chooses which tool(s) to call in sequence.  
+   - Finally invokes the real SendGrid tool to dispatch the chosen email.
+
+---
+
+### Tools vs. Handoffs
+
+| Aspect              | Tool                                  | Handoff                             |
+|---------------------|---------------------------------------|-------------------------------------|
+| **Concept**         | A helper function you call and resume.| Full delegation of control to another agent. |
+| **API style**       | Request → response; you keep control. | You pass execution and do **not** return.  |
+| **Use case**        | Small, composable steps in a workflow.| Split off a complete sub‑job to a specialist agent. |
+| **Implementation**  | `agent.as_tool(...)` → `FunctionTool` | Define a second `Agent(...)` with its own instructions and `handoff_description` |
+
+---
+
+### Example: Defining a Handoff Agent
+
+```python
+from agents import Agent
+
+# 1) Subject‐writer tool (wrapped agent)
+subject_tool = subject_agent.as_tool(
+    tool_name="write_subject",
+    tool_description="Generate an email subject line"
+)
+
+# 2) HTML‐converter tool (wrapped agent)
+html_tool = html_agent.as_tool(
+    tool_name="to_html",
+    tool_description="Convert text email to HTML format"
+)
+
+# 3) Send‐email tool (plain function)
+send_html = FunctionTool(
+    name="send_html_email",
+    description="Send an HTML email via SendGrid",
+    func=send_html_function
+)
+
+# 4) Email‐manager handoff
+emailer = Agent(
+    name="Email Manager",
+    instructions=(
+        "You are an email formatter & sender. "
+        "Use the write_subject tool, then to_html, "
+        "and finally send_html_email."
+    ),
+    tools=[subject_tool, html_tool, send_html],
+    handoff_description="Format body → subject → HTML → send"
+)
+
