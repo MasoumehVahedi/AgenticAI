@@ -1,0 +1,7 @@
+gradio
+python-dotenv
+openai
+sendgrid
+flask
+biopython
+scikit-learn
