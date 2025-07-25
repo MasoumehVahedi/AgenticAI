@@ -88,13 +88,8 @@ Start vibing—just remember to stay in control.
 
 ## Wrapping Agents, Tools & Handoffs
 
-### What We Built
-1. **Parallel email generators**  
-   - Three “sales agent” LLMs run in parallel (via `asyncio.gather`).  
-   - A fourth manager agent picks the best output.
-
-2. **Tools**  
-   - We turned Python functions (e.g. SendGrid email sender) into `FunctionTool`s.  
+**Tools**  
+   - For example, we turn Python functions (e.g. SendGrid email sender) into `FunctionTool`s.  
    - We also wrapped two of our “sales agents” as tools using `.as_tool(...)`.  
    - All tools share a uniform interface:  
      ```python
@@ -104,20 +99,14 @@ Start vibing—just remember to stay in control.
      )
      result = tool({"body": "New features..."})
      ```
-
-3. **Manager Agent**  
-   - Receives a list of tools (`[sales1, sales2, sales3, send_email]`).  
-   - Chooses which tool(s) to call in sequence.  
-   - Finally invokes the real SendGrid tool to dispatch the chosen email.
-
 ---
 
 ### Tools vs. Handoffs
 
 | Aspect              | Tool                                  | Handoff                             |
 |---------------------|---------------------------------------|-------------------------------------|
-| **Concept**         | A helper function you call and resume.| Full delegation of control to another agent. |
-| **API style**       | Request → response; you keep control. | You pass execution and do **not** return.  |
+| **Concept**         | A helper function we call and resume.| Full delegation of control to another agent. |
+| **API style**       | Request → response; we keep control. | We pass execution and do **not** return.  |
 | **Use case**        | Small, composable steps in a workflow.| Split off a complete sub‑job to a specialist agent. |
 | **Implementation**  | `agent.as_tool(...)` → `FunctionTool` | Define a second `Agent(...)` with its own instructions and `handoff_description` |
 
