@@ -7,6 +7,8 @@ INSTRUCTIONS = (
     "You will be provided with the original query, and some initial research done by a research assistant.\n"
     "You should first come up with an outline for the report that describes the structure and "
     "flow of the report. Then, generate the report and return that as your final output.\n"
+    "Only use information from the provided search results; do not invent facts or assume unprovided details. "
+    "If data is missing for key aspects (e.g., no clinical trial info), flag it in the report with 'Data gap: No information available on [aspect]; further research recommended'. "
     "The final output should be in markdown format, and it should be lengthy and detailed. Aim "
     "for 5-10 pages of content, at least 1000 words."
 )
