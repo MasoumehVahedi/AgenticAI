@@ -1,5 +1,7 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
+import faiss
+faiss.omp_set_num_threads(8)
+import numpy as np
 
 from agents import Runner, trace, gen_trace_id
 from search_agent import search_agent
@@ -13,6 +15,8 @@ import asyncio
 
 
 class ResearchManager:
+    """ Research manager for deep research process """
+    #EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
 
     async def run(self, query: str):
         """ Run the deep research process, yielding the status updates and the final report"""
@@ -25,7 +29,7 @@ class ResearchManager:
             yield "Searches planned, starting to search..."
             search_results = await self.perform_searches(search_plan)
             yield "Searches complete, optimizing results..."
-            optimized_results = self.optimize_results(search_results, query)
+            optimized_results = self.semantic_optimize_results(search_results, query)  # Replace or add after TF-IDF
             yield "Optimization complete, writing report..."
             report = await self.write_report(query, optimized_results)
             yield "Report written, sending email..."
@@ -60,16 +64,19 @@ class ResearchManager:
         return results
 
 
-    def optimize_results(self, results: list[str], query: str) -> list[str]:
-        """Optimize search results by ranking relevance (TF-IDF)."""
+    def semantic_optimize_results(self, results: list[str], query: str) -> list[str]:
+        """Semantic optimization with FAISS for conceptual relevance."""
         if not results:
             return []
-        vectorizer = TfidfVectorizer()
-        vectors = vectorizer.fit_transform([query] + results)
-        similarities = cosine_similarity(vectors[0:1], vectors[1:]).flatten()
-        sorted_indices = similarities.argsort()[::-1]
-        filtered = [results[i] for i in sorted_indices if similarities[i] > 0.01]
-        print(f"Optimized from {len(results)} to {len(filtered)} results.")
+        model = SentenceTransformer('all-MiniLM-L6-v2')
+        query_emb = model.encode([query])
+        results_emb = model.encode(results)
+        index = faiss.IndexFlatL2(results_emb.shape[1])  # L2 similarity index
+        index.add(np.array(results_emb))
+        D, I = index.search(np.array(query_emb), len(results))
+        threshold = 0.3  # Distance threshold
+        filtered = [results[i] for i, d in zip(I[0], D[0]) if d < threshold]
+        print(f"FAISS optimized from {len(results)} to {len(filtered)} results.")
         return filtered
 
 
@@ -85,10 +92,13 @@ class ResearchManager:
         except Exception:
             return None
 
+
     async def write_report(self, query: str, search_results: list[str]) -> ReportData:
-        """ Write the report for the query """
+        """ Write the report for the query with RAG context """
         print("Thinking about report...")
-        input = f"Original query: {query}\nSummarized search results: {search_results}"
+        # Format search_results as context for RAG
+        context = "\n".join([f"Summary {i + 1}: {result}" for i, result in enumerate(search_results)])
+        input = f"Original query: {query}\nRetrieved search results:\n{context}"
         result = await Runner.run(
             writer_agent,
             input,
