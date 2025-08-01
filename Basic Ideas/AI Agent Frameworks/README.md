@@ -52,6 +52,29 @@ There are many frameworks with different trade-offs. Below is the simplified hie
 - **Key point:** Tools give the LLM *discretionary autonomy* to decide “I need to run X” and then you execute it programmatically.
 
 
+---
+
+## Evaluator-Optimizer Workflow (vanilla, no framework)
+
+### Overview
+1. Asking an LLM (e.g., GPT-4 or mini) a question.
+2. Sending its answer to a separate **evaluator LLM** (e.g., Gemini) that returns a structured verdict (`is_acceptable: bool` + `feedback: str`) via a Pydantic schema (structured output).
+3. If the answer fails evaluation, automatically **rerunning** the original LLM with context about the rejection to get an improved response.
+4. Combining all of this into a single chat function: initial answer → evaluation → conditional retry.
+
+### Workflow Summary
+```python
+# 1. Get answer from primary LLM (GPT-4/mini)
+reply = ask_primary_llm(question)
+
+# 2. Evaluate it via evaluator LLM (Gemini) with structured output
+evaluation = evaluate(reply, question, history)  # returns object with is_acceptable & feedback
+
+# 3. If rejected, rerun primary LLM with rejection context
+if not evaluation.is_acceptable:
+    reply = rerun_with_feedback(question, evaluation.feedback)
+
+# 4. Return final answer
 
 
 
