@@ -21,8 +21,7 @@ There are many frameworks with different trade-offs. Below is the simplified hie
   - Much more powerful; build computational graphs of agents and tools.
   - Steeper learning curve and more ecosystem lock-in.
 
-
-===
+---
 
 ## Resources & Tools (Short Version)
 
