@@ -51,9 +51,8 @@ There are many frameworks with different trade-offs. Below is the simplified hie
 
 - **Key point:** Tools give the LLM *discretionary autonomy* to decide “I need to run X” and then you execute it programmatically.
 
-### Important Note on Tool Use
+**Important Note on Tool Use:** Tool calling isn’t magic—it’s just the LLM returning a structured JSON “intent” and our code acting on it (e.g., with simple `if`/dispatch logic). We prompt the model, it replies with what it wants to do in JSON, and our program executes that action and feeds back results. That's the whole pattern. 
 
-Tool calling isn’t magic—it’s just the LLM returning a structured JSON “intent” and our code acting on it (e.g., with simple `if`/dispatch logic). We prompt the model, it replies with what it wants to do in JSON, and our program executes that action and feeds back results. That's the whole pattern. 
 ---
 
 ## Evaluator-Optimizer Workflow (vanilla, no framework)
