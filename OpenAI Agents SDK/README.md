@@ -125,9 +125,8 @@ Start vibing—just remember to stay in control.
 ### What does it mean to convert an agent into a tool?
 
 All it means is it's going to create a new tool.
-It's going to have all of the JSON gunk that describes what that tool can do. And if that tool is called it's going to actually call the agent and make the agent make the call to the LLM.
+It's going to have all of the JSON gunk that describes what that tool can do. And if that tool is called it's going to actually call the agent and make the agent make the call to the LLM. So it's a wrapper. A wrapper around the agent that turns the agent into a tool.
 
-So it's a wrapper. A wrapper around the agent that turns the agent into a tool.
 ---
 
 ### Tools vs. Handoffs
