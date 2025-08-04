@@ -1,3 +1,15 @@
+## OpenAI Agents SDK
+
+### Overview
+The OpenAI Agents SDK is a **lightweight, flexible**, non-opinionated framework for building agentic solutions.  
+It stays out of our way while handling the tedious “JSON + if/dispatch” plumbing around tool calls, so we can focus on logic instead of boilerplate. 
+
+### Key Advantages
+- **Minimal prescriptive structure**: We decide how to compose behavior; the SDK doesn’t force a rigid pattern.  
+- **Built-in tooling abstraction**: Handles the JSON encoding/decoding and intent dispatch for tool usage so we don’t have to reimplement it.  
+- **Scalable workflow**: Starts simple and can be used again in heavier setups (e.g., reusing it later alongside protocols like MCP).
+
+
 ## Async I/O: The Agent SDK Backbone
 
 Python’s **asynchronous I/O** is the core concurrency model underpinning every modern agent framework.
@@ -54,6 +66,17 @@ Python’s **asynchronous I/O** is the core concurrency model underpinning every
        …
    ```
 Run the agent’s main coroutine and await its output.
+
+
+### Model flexibility & running agents
+
+- **Model agnostic**: Although examples often pass an OpenAI model (e.g., `gpt-4o-mini`), the Agents SDK isn’t limited to OpenAI models—we can plug in other compatible models. The default assumption when we give a model name is OpenAI, but it’s not opinionated.  
+
+- **Agent structure**: An agent includes things like:
+  - `handoffs` (delegated interactions to other agents)
+  - `guardrails` (input/output constraints)
+  - `model` (which can be swapped)
+  - Instructions / role
 
 
 ## Vibe Coding: A Survival Guide
