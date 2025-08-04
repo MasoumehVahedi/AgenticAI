@@ -138,6 +138,12 @@ It's going to have all of the JSON gunk that describes what that tool can do. An
 | **Use case**        | Small, composable steps in a workflow.| Split off a complete sub‑job to a specialist agent. |
 | **Implementation**  | `agent.as_tool(...)` → `FunctionTool` | Define a second `Agent(...)` with its own instructions and `handoff_description` |
 
+
+### The key difference between tools and hadoffs is:
+
+**Tools** are like function calls: you invoke the other agent, it does its bit, returns a result, and you carry on.
+**Handoffs** are a true transfer of control: you pass the rest of the workflow over to the receiving agent, and you don’t return.
+
 ---
 
 ### Example: Defining a Handoff Agent
