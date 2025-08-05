@@ -14,7 +14,9 @@
       - Deep research ≈ 10 searches ⇒ ~$0.25/run (watch our balance!).  
       - Dial *search_context_size* (`low | medium | high`) and/or switch models to save cents.
     
-    * **Minimal agent skeleton**
+      see this website: https://platform.openai.com/docs/pricing#web-search
+
+    ** Minimal agent skeleton **
     
       ```python
       search_agent = client.beta.assistants.create(

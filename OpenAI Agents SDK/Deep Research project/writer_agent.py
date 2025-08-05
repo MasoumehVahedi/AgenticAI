@@ -1,3 +1,20 @@
+"""
+    Writer Agent 
+
+    **Writer (“Researcher”) Agent**  
+      - Prompt: “You are a *senior researcher*; given the query *and* the assistant’s raw search notes, draft a full report.”  
+      - Output spec: `ReportData` (Pydantic)  
+        ```python
+        class ReportData(BaseModel):
+            short_summary:     str      # 2–3-sentence Too Long; Didn’t Read.
+            markdown_report:   str      # 5–10 pages, ≥1000 words
+            follow_up_questions: list[str]  # suggested next-step research
+        ```
+      - Model: `gpt-4o-mini` (cheap); `output_type=ReportData` forces JSON-backed structured output.
+    
+"""
+
+
 from pydantic import BaseModel
 from agents import Agent
 

@@ -1,3 +1,48 @@
+"""
+    Planner Agent (Structured-Output Search Planner)
+
+    **Role**
+      Turns a user query into **N (e.g., 15) curated web-search terms** (defaults to three to keep tool-call costs low).
+
+    **Why structured output?**
+      - We define a *schema* with **Pydantic** → the model must fill it in.
+      - Each item has `reason` **first** then `query`; forcing a rationale encourages higher-quality searches (light “chain-of-thought” bump).
+
+    **Schemas**
+
+      ```python
+      class WebSearchItem(BaseModel):
+          reason: str  # why this search is relevant
+          query:  str  # term to plug into web_search
+
+      class WebSearchPlan(BaseModel):
+          searches: list[WebSearchItem]  # ← exactly HOW_MANY_SEARCHES items
+    ```
+
+    **Cost math**
+    HOW_MANY_SEARCHES × $0.025 → 3 × 2.5¢ ≈ 7.5¢ per research session.
+
+    **Typical response**
+    {
+      "searches": [
+        {
+          "reason": "Capture the newest releases & benchmarks for agent frameworks in 2025.",
+          "query":  "latest AI agent frameworks 2025"
+        },
+        {
+          "reason": "Find research-grade or niche frameworks still in beta.",
+          "query":  "emerging AI agent frameworks 2025 academic"
+        },
+        {
+          "reason": "Check conference / workshop announcements for fresh tooling.",
+          "query":  "AI frameworks conference announcements 2025"
+        }
+      ]
+    }
+
+"""
+
+
 from pydantic import BaseModel, Field
 from agents import Agent
 
