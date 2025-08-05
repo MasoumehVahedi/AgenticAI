@@ -1,3 +1,41 @@
+"""
+   OpenAI Agents SDK includes the following hosted tools:
+    
+    - The `WebSearchTool` lets an agent search the web.  
+    - The `FileSearchTool` allows retrieving information from your OpenAI Vector Stores.  
+    - The `ComputerTool` allows automating computer use tasks like taking screenshots and clicking.
+    
+    - Structured output: the agent speaks JSON-ish so later stages can chain the data.  
+    
+    ### Important note - API charge of WebSearchTool
+    
+      `web_search` isn’t free:  
+      - **≈ $0.025 per call** on `gpt-4o-mini` with *low* context.  
+      - Deep research ≈ 10 searches ⇒ ~$0.25/run (watch our balance!).  
+      - Dial *search_context_size* (`low | medium | high`) and/or switch models to save cents.
+    
+    * **Minimal agent skeleton**
+    
+      ```python
+      search_agent = client.beta.assistants.create(
+          name="Search Agent",
+          instructions=(
+              "You are a research assistant. Given a search term, "
+              "search the web and produce a concise 2-3 paragraph summary. "
+              "Succinct style; grammar not important."
+          ),
+          tools=[{"type": "web_search"}],                     # hosted tool
+          model="gpt-4o-mini",                                # cheaper tier
+          tool_resources={"web_search": {"search_context_size": "low"}},
+          model_settings={"tool_choice": {"type": "required"}} # force the tool
+      )
+
+
+"""
+
+
+
+
 import os
 from agents import Agent, WebSearchTool, ModelSettings, function_tool
 from Bio import Entrez
