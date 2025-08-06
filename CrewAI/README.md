@@ -84,8 +84,51 @@ Decorators automatically register each function to self.agents / self.tasks, kee
 - **YAML + decorators** give neat separation of concerns, at the cost of extra files to grok.
 - Choose **Crews** for autonomous, exploratory work; **Flows** when you need deterministic, auditable pipelines.
 
+---
 
+## ⚡️ LiteLLM & Project Scaffold
 
+### LiteLLM integration
+* CrewAI wraps **LiteLLM** → super-thin adapter to *any* provider/model.
+* Instantiate with a single string: `provider/model`
+  ```python
+  LLM(model="openai/gpt-4o-mini")
+  LLM(model="anthropic/claude-3-5-sonnet-latest")
+  LLM(model="gemini/gemini-2-0-flash")
+  LLM(model="grok/llama-3.7b-versa")          # local Grok via Ollama
+  LLM(
+      model="openrouter/deepseek/deepseek-r1",
+      base_url="https://openrouter.ai/api/v1",
+      api_key=OPENROUTER_API_KEY
+  )
+  ```
+
+### Creating a CrewAI project (UV powered)
+
+  ```bash
+# scaffold a new crew
+crewai create crew my_crew
+  ```
+
+### Directory layout
+my_crew/
+└─ src/
+   └─ my_crew/
+      ├─ config/
+      │  ├─ agents.yaml      # roles, goals, back-stories
+      │  └─ tasks.yaml
+      ├─ crew.py             # decorators assemble Agents, Tasks, Crew
+      └─ main.py             # entry-point
+
+Run it:
+  ```bash
+   crewai run         # ⇢ executes main.py
+  ```
+CrewAI projects are UV projects under the hood, so we will also see .uv/ config files nested inside.
+
+**Note**: Use crewai create flow … if you prefer deterministic Flows; stick with Crews for autonomous teamwork.
+
+---
 
 
 
