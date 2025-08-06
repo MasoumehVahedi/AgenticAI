@@ -111,6 +111,7 @@ crewai create crew my_crew
   ```
 
 ### Directory layout
+```text
 my_crew/
 └─ src/
    └─ my_crew/
@@ -119,6 +120,7 @@ my_crew/
       │  └─ tasks.yaml
       ├─ crew.py             # decorators assemble Agents, Tasks, Crew
       └─ main.py             # entry-point
+```
 
 Run it:
   ```bash
