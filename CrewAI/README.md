@@ -1,4 +1,4 @@
-## 🚢 CrewAI Overview
+## CrewAI Overview
 
 * **Three commercial offerings**  
   | Product | What it is | 
