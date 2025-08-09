@@ -35,7 +35,7 @@ crew/
 - agents.yaml: Defines agents
 - tasks.yaml: Defines tasks
 
-##1. Agent Configuration Overview (agents.yaml)
+## 1. Agent Configuration Overview (agents.yaml)
 
 When defining agents in a Crew project, each agent should have:
 
@@ -69,7 +69,7 @@ When defining agents in a Crew project, each agent should have:
 - Use template variables to keep agents reusable for different scenarios.
 - Choose models balancing **quality** and **cost**.
 
-##2. Tasks Overview (tasks.yaml)
+## 2. Tasks Overview (tasks.yaml)
 
 ### 1) `config/tasks.yaml` — define the work
 We replace the default `research/reporting` tasks with **three tasks**:
