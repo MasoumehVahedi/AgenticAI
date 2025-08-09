@@ -114,6 +114,7 @@ with a process type (e.g., sequential or hierarchical) and verbosity settings.
 ---
 
 ### 3) `src/debate/main.py` — set inputs & run
+- Update main.py to set any config and run.
 - Provide runtime values for template variables (e.g., `{motion}`):
   ```python
   inputs = { "key_variable": "Your value here" }
