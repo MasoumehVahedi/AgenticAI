@@ -35,7 +35,7 @@ crew/
 - agents.yaml: Defines agents
 - tasks.yaml: Defines tasks
 
-## Agent Configuration Overview (agents.yaml)
+##1. Agent Configuration Overview (agents.yaml)
 
 When defining agents in a Crew project, each agent should have:
 
@@ -68,4 +68,57 @@ When defining agents in a Crew project, each agent should have:
 - Make goals clear and measurable.
 - Use template variables to keep agents reusable for different scenarios.
 - Choose models balancing **quality** and **cost**.
+
+##2. Tasks Overview (tasks.yaml)
+
+### 1) `config/tasks.yaml` — define the work
+We replace the default `research/reporting` tasks with **three tasks**:
+Tasks describe **what needs to be done**, **who does it**, and **what the result should look like**.
+
+Each task includes:
+
+- **description** – What the task is about and its goal.
+- **expected_output** – The form or type of result you expect.
+- **agent** – Which agent will execute this task.
+- **output_file** (optional) – Where to save the results.
+
+For example for a task:
+- **propose**
+  - **description:** propose the motion and argue **for** it.
+  - **expected_output:** a concise, convincing argument in favor of `{motion}`.
+  - **agent:** `debater`
+  - **output_file:** `output/propose.md`
+
+**Notes**
+- Avoid naming a task the same as an agent to prevent naming conflicts.
+- Store outputs in a dedicated folder (e.g., output/) for easier review.
+
+---
+
+### 2) `src/debate/crew.py` — connect YAML to code
+This module wires agents & tasks from the YAMLs into a runnable crew.
+
+- Loads config paths:
+  - `agents_config = 'config/agents.yaml'`
+  - `tasks_config  = 'config/tasks.yaml'`
+- Defines agents with `@agent`:
+  - `debater()` → returns `Agent(config=self.agents_config['debater'], verbose=True)`
+- Defines tasks with `@task`:
+  - `propose()` → `Task(config=self.tasks_config['propose'])`
+- Builds the crew:
+with a process type (e.g., sequential or hierarchical) and verbosity settings.
+  - `process=Process.sequential` (run tasks in order)
+  - `verbose=True` (show progress)
+- We do **not** need `output_file` in code if it’s already in YAML.
+
+---
+
+### 3) `src/debate/main.py` — set inputs & run
+- Provide runtime values for template variables (e.g., `{motion}`):
+  ```python
+  inputs = { "key_variable": "Your value here" }
+  result = MyProjectCrew().crew().kickoff(inputs=inputs)
+  print(result.raw)  # prints the final output
+   ```
+
 
