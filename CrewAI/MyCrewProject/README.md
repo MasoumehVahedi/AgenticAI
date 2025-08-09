@@ -122,4 +122,21 @@ with a process type (e.g., sequential or hierarchical) and verbosity settings.
   print(result.raw)  # prints the final output
    ```
 
+---
 
+## Using External APIs: SERP API (Serpa)
+For web search tasks, we will integrate Serpa — a lightning-fast Google search API.
+
+### Setup steps:
+
+1. Sign up at Serpa.dev (free account).
+2. You get 2500 free credits — enough for course projects.
+3. Generate your API Key in your Serpa dashboard.
+
+Add it to .env:
+
+```env
+SERPA_API_KEY=your_api_key_here
+```
+
+- Make sure you use SERPA_API_KEY, not “SerpAPI” — they are different services.
