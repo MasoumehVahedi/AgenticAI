@@ -180,6 +180,7 @@ or
 crewai run
 ```
 
+**Note**: the command "PYTHONPATH=src python -m financial_researcher.main" is working better for me.
 
 
 
