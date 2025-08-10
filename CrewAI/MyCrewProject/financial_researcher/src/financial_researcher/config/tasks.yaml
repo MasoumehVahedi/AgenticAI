@@ -1,0 +1,63 @@
+
+signal_scan:
+  description: >
+    Identify the most impactful recent developments for {company} and its key peers in {industry}.
+    Include:
+    1. Major news & press releases in the last {horizon}
+    2. Financial events (earnings, M&A, guidance changes)
+    3. Regulatory actions or policy changes affecting the sector
+    4. Market sentiment indicators (if available)
+    5. Strategic partnerships, product launches, or competitive moves
+    Use only credible, cited sources. Summarize why each matters in one sentence.
+  expected_output: >
+    A bullet-point list of {count} high-impact items, each with date, source URL, and
+    a brief "why it matters" note.
+  agent: signal_hunter
+  output_file: output/signals.md
+
+
+insight_build:
+  description: >
+    Synthesize the collected signals into a cohesive view of the {company} situation.
+    Assess:
+    1. Financial impact (short and long term)
+    2. Risks and opportunities for stakeholders
+    3. Likely competitive responses
+    4. Leading and lagging indicators to monitor
+  expected_output: >
+    A structured analysis with sections for "Opportunities", "Risks", "Catalysts", and "KPI Watchlist".
+    Each point should cite relevant signals and state confidence levels.
+  agent: finance_analyst
+  context:
+    - signal_scan            # <-- bring in the signal list
+  output_file: output/insights.md
+
+
+action_plan:
+  description: >
+    Translate insights into specific, audience-tailored recommendations for {audience}.
+    Ensure actions are realistic, measurable, and tied to business goals ({objective}).
+  expected_output: >
+    A 1-page action plan containing:
+    - Executive Summary (5 bullets)
+    - 3 Key Recommended Actions with owners and timelines
+    - Risk Mitigation notes
+  agent: opportunity_architect
+  context:
+    - signal_scan            # (optional) also let actions see raw signals
+    - insight_build          # main upstream analysis
+  output_file: output/actions.md
+
+
+compliance_pass:
+  description: >
+    Review outputs for factual accuracy, missing citations, and compliance risks.
+    Remove or flag unsupported claims.
+  expected_output: >
+    Cleaned versions of all outputs with an appended compliance disclaimer suitable for {audience}.
+  agent: guardrail_reviewer
+  context:
+    - signal_scan
+    - insight_build
+    - action_plan
+  output_file: output/final_review.md
