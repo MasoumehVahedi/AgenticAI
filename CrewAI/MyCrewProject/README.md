@@ -140,3 +140,53 @@ SERPA_API_KEY=your_api_key_here
 ```
 
 - Make sure you use SERPA_API_KEY, not “SerpAPI” — they are different services.
+
+---
+
+## Using Serpa with CrewAI for Real-Time 
+
+In this project, one of the key points is enabling the **second agent** to take advantage of the **output from the first agent** by including it in its context.  
+For example, when summarizing a research report on a COMPANY, the summarizing agent could leverage the prior research results as part of its prompt context.
+
+### Knowledge Cutoff Issue
+Initially, the research agent used a knowledge source with a cutoff (October 2023 in our example).  
+This meant that even though it produced accurate summaries, it **lacked the most up-to-date financial metrics** (e.g., Q3 2023 results were the latest).
+
+This happened because the research model we used (via DeepSEQ) was last trained in 2023 and had no recent data.
+
+### Adding Real-Time Data with Serpa
+To fix this, we integrated the **Serpa dev tool** into CrewAI, which allows Google lookups using our Serpa dev account.  
+
+**Steps:**
+1. **Add Serpa API Key**  
+   - Put our Serpa API key into your `.env` file:
+     ```env
+     SERPER_API_KEY=your_api_key_here
+     ```
+2. **Import the Tool in Your Crew Definition**  
+   In your crew module:
+   ```python
+   from crewai_tools import SerperDevTool
+   ```
+3. **Assign the Tool to the Research Agent Only**
+```python
+serper_tool = SerperDevTool()
+research_agent = Agent(..., tools=[serper_tool])
+```
+4. Run the Crew
+```bash
+PYTHONPATH=src python -m financial_researcher.main
+or
+crewai run
+```
+
+
+
+
+
+
+
+
+
+
+
