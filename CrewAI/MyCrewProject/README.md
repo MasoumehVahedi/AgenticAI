@@ -139,7 +139,7 @@ Add it to .env:
 SERPA_API_KEY=your_api_key_here
 ```
 
-- Make sure you use SERPA_API_KEY, not “SerpAPI” — they are different services.
+**Note**: Make sure you use SERPA_API_KEY, not “SerpAPI” — they are different services.
 
 ---
 
