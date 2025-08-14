@@ -17,7 +17,7 @@ This modular and compositional approach is what gives LLM agents their flexibili
 
 
 
-## 🛠 Installation and Sync Setup
+## Installation and Sync Setup
 
 To install [`uv`](https://github.com/astral-sh/uv), a fast Python package manager:
 
@@ -66,7 +66,7 @@ This command does the following:
 It’s like a faster, smarter replacement for pip install + virtualenv + pip-tools.
 
 
-## 🔐 Set Up OpenAI API Key 
+## Set Up OpenAI API Key 
 
 We can integrate this project with the OpenAI API.
 
