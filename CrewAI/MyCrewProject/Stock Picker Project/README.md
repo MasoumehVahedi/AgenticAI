@@ -22,3 +22,12 @@ Manager (hierarchical) ──► TrendingCompanyFinder ──► FinancialResear
 2. **Determinism**: Structured outputs + consistent language reduce drift.
 3. **Extensibility**: Swap models, add tools (web search, financial APIs), or add guardrails later.
 4. **Observability**: Crew traces + explicit outputs (output/*.json, decision.md) make debugging easy.
+
+### Extend
+- Swap models per agent (Gemini/DeepSeek via OpenAI-compatible endpoints).
+- Add more tools (Slack, email, CRM writeback).
+- Add an **output guardrail** agent to check the final decision before notifying.
+
+
+
+
